@@ -25,6 +25,12 @@ public class AuthUI : MonoBehaviour
 
     private void OnRegisterClick()
     {
+        if (string.IsNullOrEmpty(usernameInput.text) || string.IsNullOrEmpty(passwordInput.text))
+        {
+            statusText.text = "아이디 또는 비밀번호가 비어있습니다.";
+            return;
+        }
+
         StartCoroutine(RegisterCoroutine());
     }
 
@@ -44,8 +50,11 @@ public class AuthUI : MonoBehaviour
     private IEnumerator RegisterCoroutine()
     {
         statusText.text = "회원 가입 중 ....";
-        yield return StartCoroutine(authManager.Register(usernameInput.text, passwordInput.text));
-        statusText.text = "회원 가입 성공 , 로그인 해주세요";
+        yield return StartCoroutine(authManager.Register(
+                usernameInput.text,
+                passwordInput.text,
+                (string message) => statusText.text = message               // 콜백으로 상태 표시
+            ));
     }
 
 }

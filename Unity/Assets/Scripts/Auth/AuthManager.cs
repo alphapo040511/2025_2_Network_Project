@@ -47,12 +47,12 @@ public class AuthManager : MonoBehaviour
     }
 
     //사용자 등록 코루틴
-    public IEnumerator Register(string username, string password)
+    public IEnumerator Register(string username, string password, Action<string> callbackMessage)
     {
         var user = new { username, password };
         var jsonData = JsonConvert.SerializeObject(user);
 
-        using (UnityWebRequest www = UnityWebRequest.PostWwwForm($"{SERVER_URL}/register", "POST"))
+        using (UnityWebRequest www = new UnityWebRequest($"{SERVER_URL}/register", "POST"))
         {
             byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
             www.uploadHandler = new UploadHandlerRaw(bodyRaw);
@@ -61,13 +61,15 @@ public class AuthManager : MonoBehaviour
 
             yield return www.SendWebRequest();
 
+            var respone = JsonConvert.DeserializeObject<BaseResponse>(www.downloadHandler.text);
+
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError($"Registration Error : {www.error}");
+                callbackMessage?.Invoke($"(Error Code: {www.responseCode})회원 가입 실패: {respone.message}");
             }
             else
             {
-                Debug.Log("Registration successful");
+                callbackMessage?.Invoke(respone.message);
             }
         }
     }
@@ -78,7 +80,7 @@ public class AuthManager : MonoBehaviour
         var user = new { username, password };
         var jsonData = JsonConvert.SerializeObject(user);
 
-        using (UnityWebRequest www = UnityWebRequest.PostWwwForm($"{SERVER_URL}/login", "POST"))
+        using (UnityWebRequest www = new UnityWebRequest($"{SERVER_URL}/login", "POST"))
         {
             byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
             www.uploadHandler = new UploadHandlerRaw(bodyRaw);
@@ -87,32 +89,28 @@ public class AuthManager : MonoBehaviour
 
             yield return www.SendWebRequest();
 
-            if (www.result != UnityWebRequest.Result.Success)
+            // 통신 자체 실패
+            if (www.result == UnityWebRequest.Result.ConnectionError)
             {
-                Debug.LogError($"Registration Error : {www.error}");
+                Debug.LogError($"네트워크 오류: {www.error}");
+                yield break;
             }
-            else
+
+            // 서버 응답 파싱
+            var response = JsonConvert.DeserializeObject<LoginResponse>(www.downloadHandler.text);
+
+            // 로그인 실패
+            if (!response.success)
             {
-                var respone = JsonConvert.DeserializeObject<LoginResponse>(www.downloadHandler.text);
-                Debug.Log(respone.accessToken);
-                SaveTokenToPrefs(respone.accessToken, respone.refreshToken, DateTime.UtcNow.AddMinutes(15));
+                Debug.Log($"(Error Code: {www.responseCode}) 로그인 실패: {response.message}");
+                yield break;
+            }
+            else  // 로그인 성공
+            {
+                Debug.Log($"플레이어 ID : {response.playerId} | 접근 토큰 : {response.accessToken}");
+                SaveTokenToPrefs(response.accessToken, null, DateTime.UtcNow.AddMinutes(15));
                 Debug.Log("Login Successful");
             }
         }
     }
-}
-
-//로그인 응답 데이터 구조
-[System.Serializable]
-public class LoginResponse
-{
-    public string accessToken;
-    public string refreshToken;
-}
-
-//토큰 갱신 응답 데이터 구조
-[System.Serializable]
-public class RefreshTokenResponse
-{
-    public string accessToekn;
 }
