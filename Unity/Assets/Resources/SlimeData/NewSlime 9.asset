@@ -18,5 +18,5 @@ MonoBehaviour:
   slimeRarity: 1
   prefab: {fileID: 440254569528276344, guid: ee135893d4e9548438e60aa5de77017a, type: 3}
   slimeImage: {fileID: 1913486361, guid: 6caf6b393f85d3d4eb90ee49e4949551, type: 3}
-  incomeTime: 0
-  incomeAmount: 0
+  incomeTime: 6
+  incomeAmount: 2
