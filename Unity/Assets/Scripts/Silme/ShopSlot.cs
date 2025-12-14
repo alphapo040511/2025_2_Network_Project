@@ -23,7 +23,7 @@ public class ShopSlot : MonoBehaviour
             // [중요] 상태 완전 초기화 (새로고침 시 필수!)
             nameText.text = data.slimeName;
             priceText.text = $"{data.price}G";
-            slimeImage.sprite = data.slimeImage.sprite;
+            slimeImage.sprite = data.slimeImage;
 
             buyButton.interactable = true; 
             // soldPanel이 있다면 비활성화: if(soldPanel) soldPanel.SetActive(false);
