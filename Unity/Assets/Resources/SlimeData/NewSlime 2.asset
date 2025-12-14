@@ -15,6 +15,8 @@ MonoBehaviour:
   key: slime_002
   slimeName: Sora
   price: 0
+  slimeRarity: 0
   prefab: {fileID: 2604616551407332196, guid: 237aa50ce3c14aa4a9cf50ab33918670, type: 3}
+  slimeImage: {fileID: 2014287933, guid: 6caf6b393f85d3d4eb90ee49e4949551, type: 3}
   incomeTime: 0
   incomeAmount: 0

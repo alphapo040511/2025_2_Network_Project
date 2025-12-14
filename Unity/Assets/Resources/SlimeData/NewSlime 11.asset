@@ -17,5 +17,6 @@ MonoBehaviour:
   price: 0
   slimeRarity: 1
   prefab: {fileID: 7202634927628328145, guid: b2bbf83e48871c34099bdffe573552a9, type: 3}
+  slimeImage: {fileID: 1126605539, guid: 6caf6b393f85d3d4eb90ee49e4949551, type: 3}
   incomeTime: 0
   incomeAmount: 0

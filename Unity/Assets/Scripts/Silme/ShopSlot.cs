@@ -7,6 +7,7 @@ public class ShopSlot : MonoBehaviour
     [Header("UI 연결")]
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI priceText;
+    public Image slimeImage;
     public Button buyButton;       // 구매 버튼
     public GameObject soldPanel;   // (선택) "판매됨"이라고 가려주는 패널이 있다면 사용
 
@@ -21,11 +22,11 @@ public class ShopSlot : MonoBehaviour
         {
             // [중요] 상태 완전 초기화 (새로고침 시 필수!)
             nameText.text = data.slimeName;
-            priceText.text = $"{data.price}원";
+            priceText.text = $"{data.price}G";
+            slimeImage.sprite = data.slimeImage.sprite;
 
             buyButton.interactable = true; 
             // soldPanel이 있다면 비활성화: if(soldPanel) soldPanel.SetActive(false);
-
             gameObject.SetActive(true);
         }
         else
