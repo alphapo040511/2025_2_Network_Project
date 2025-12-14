@@ -85,7 +85,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounceForce: 8
   jumpInterval: 2
-  wanderRadius: 5
+  wanderRadius: 15
   moveSpeed: 2
   bouncyMaterial: {fileID: 13400000, guid: 16caae073abf7a6489df684b85af6b8d, type: 2}
   currentState: 0

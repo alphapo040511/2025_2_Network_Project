@@ -45,6 +45,8 @@ public class BouncingNavAgent : MonoBehaviour
 
     void Start()
     {
+        jumpInterval = Random.Range(1.5f, 3f);
+
         spawnPoint = transform.position;
         targetPosition = GetRandomPosition();
 
