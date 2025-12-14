@@ -5,6 +5,7 @@ using NativeWebSocket;
 using Newtonsoft.Json;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 [Serializable]
 public class NetworkMessage
@@ -44,7 +45,8 @@ public class NetworkManager : MonoBehaviour
     [SerializeField] private InputField messageInput;
     [SerializeField] private Button sendButton;
     [SerializeField] private Button connectButton;
-    [SerializeField] private Text chatLog;
+    [SerializeField] public TextMeshProUGUI chatLogPrefab;
+    public Transform chatContent;
     [SerializeField] private Text statusText;
 
     private string myPlayerId;
@@ -54,6 +56,8 @@ public class NetworkManager : MonoBehaviour
     {
         sendButton.onClick.AddListener(SendChatMessage);
         connectButton.onClick.AddListener(ConnectToServer);
+
+        ConnectToServer();      // 서버 접속
 
         //enter 키로 메세지 전송
         if (messageInput != null)
@@ -90,26 +94,36 @@ public class NetworkManager : MonoBehaviour
             return;
         }
 
+        if(NetworkDataManager.Instance.playerData == null)
+        {
+            AddToChatLog("[시스템] 유저 ID 정보를 찾을 수 없습니다. ");
+            Debug.LogWarning("유저 ID가 없어 채팅 서버 연결 실패");
+            return;
+        }
+
         UpdateStatusText("연결 중...", Color.yellow);
 
-        webSocket = new WebSocket(serverUrl);
+        webSocket = new WebSocket($"{serverUrl}?playerId={NetworkDataManager.Instance.playerData.username}");
 
         webSocket.OnOpen += () =>
         {
             UpdateStatusText("연결됨", Color.green);
             AddToChatLog("[시스템] 서버에 연결 되었습니다. ");
+            connectButton.gameObject.SetActive(false);              // 연결 되면 연결 버튼 비활성화
         };
 
         webSocket.OnError += (e) =>
         {
             UpdateStatusText("에러 발생", Color.green);
             AddToChatLog("[시스템] 에러 : {e} ");
+            connectButton.gameObject.SetActive(true);
         };
 
         webSocket.OnClose += (e) =>
         {
             UpdateStatusText("연결 끊김", Color.red);
             AddToChatLog("[시스템] 서버와의 연결이 끊어졌습니다. ");
+            connectButton.gameObject.SetActive(true);
         };
 
         webSocket.OnMessage += (bytes) =>
@@ -174,11 +188,33 @@ public class NetworkManager : MonoBehaviour
         messageInput.ActivateInputField();                  //입력창 다시 활성화 
     }
 
+    public async void SendChatMessage(string str)
+    {
+        if (string.IsNullOrEmpty(str)) return;
+
+        if (webSocket == null || webSocket.State != WebSocketState.Open)
+        {
+            AddToChatLog("[시스템] 서버에 연결되지 않았습니다.");
+            return;
+        }
+
+        NetworkMessage message = new NetworkMessage
+        {
+            type = "Chat",
+            message = str
+        };
+
+        await webSocket.SendText(JsonConvert.SerializeObject(message));
+    }
+
     private void AddToChatLog(string message)
     {
-        if (chatLog != null)
+        if (chatLogPrefab != null && chatContent != null)
         {
-            chatLog.text += $"\n{message}";
+            TextMeshProUGUI chat = Instantiate(chatLogPrefab);
+            chat.text += $"{message}";
+
+            chat.transform.SetParent(chatContent);
         }
     }
 
