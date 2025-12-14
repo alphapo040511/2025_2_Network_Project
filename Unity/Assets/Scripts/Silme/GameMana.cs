@@ -35,8 +35,17 @@ public class GameMana : MonoBehaviour
     private void Start()
     {
         SlimeGenerator();
-        UpdateUI();
+        InitializeMoney();
         RerollShop();
+    }
+
+    void InitializeMoney()
+    {
+        StartCoroutine(NetworkDataManager.Instance.FetchGold((gold) =>
+        {
+            currentMoney = gold;
+            UpdateUI();
+        }));
     }
 
     // --- 새로고침 버튼 기능 ---
@@ -47,6 +56,7 @@ public class GameMana : MonoBehaviour
         if (currentMoney >= rerollCost)
         {
             currentMoney -= rerollCost;
+            StartCoroutine(NetworkDataManager.Instance.GoldUpdate(currentMoney));   // 골드 서버에 반영
             UpdateUI();
             RerollShop();
         }
@@ -82,7 +92,12 @@ public class GameMana : MonoBehaviour
     {
         if (currentMoney >= data.price)
         {
-            currentMoney -= data.price;
+            currentMoney -= data.price;     // 골드 사용
+
+            StartCoroutine(NetworkDataManager.Instance.GoldUpdate(currentMoney));   // 골드 서버에 반영
+
+            InventoryManager.Instance.AddSlime(data);       // 슬라임 추가
+
             UpdateUI();
 
             Vector3 randomPos = spawnPoint.position + new Vector3(Random.Range(-3f, 3f), 0, Random.Range(-3f, 3f));

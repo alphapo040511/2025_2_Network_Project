@@ -56,4 +56,17 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
         else
             return null;
     }
+
+    public void AddSlime(SlimeDataSO slime)
+    {
+        if (inventory.ContainsKey(slime.key))
+            inventory[slime.key].quantity++;
+        else
+        {
+            ItemData item = new ItemData(slime, 1);
+            inventory.Add(slime.key, item);
+        }
+
+        StartCoroutine(NetworkDataManager.Instance.AddSlime(slime));
+    }
 }
