@@ -100,7 +100,7 @@ public class GameMana : MonoBehaviour
 
             UpdateUI();
 
-            Vector3 randomPos = spawnPoint.position + new Vector3(Random.Range(-3f, 3f), 0, Random.Range(-3f, 3f));
+            Vector3 randomPos = spawnPoint.position + new Vector3(Random.Range(-3f, 3f), 1, Random.Range(-3f, 3f));
             GameObject go = Instantiate(data.prefab, randomPos, Quaternion.identity);
 
             Slime slimeScript = go.GetComponent<Slime>();
@@ -146,7 +146,7 @@ public class GameMana : MonoBehaviour
         if (data.prefab == null) return;
 
         // À§Ä¡¸¦ ¾à°£ ·£´ýÇÏ°Ô Èð»Ñ¸®±â
-        Vector3 randomPos = spawnPoint.position + new Vector3(Random.Range(-3f, 3f), 0, Random.Range(-3f, 3f));
+        Vector3 randomPos = spawnPoint.position + new Vector3(Random.Range(-3f, 3f), 1, Random.Range(-3f, 3f));
 
         // »ý¼º!
         GameObject go = Instantiate(data.prefab, randomPos, Quaternion.identity);

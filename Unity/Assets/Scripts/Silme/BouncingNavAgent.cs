@@ -61,21 +61,6 @@ public class BouncingNavAgent : MonoBehaviour
 
     void Update()
     {
-        // 착지 감지 및 효과
-        bool currentlyGrounded = IsGrounded();
-        if (!isGroundedLastFrame && currentlyGrounded)
-        {
-            // 방금 착지함
-            OnLanded();
-        }
-        isGroundedLastFrame = currentlyGrounded;
-
-        // 잡혀있거나 바구니에 있으면 아예 움직이지 않음
-        if (currentState == SlimeState.Grabbed || currentState == SlimeState.InBasket)
-        {
-            rb.velocity = Vector3.zero;
-            return;
-        }
 
         // 움직일 수 있는 상태에서만 이동
         if (currentState == SlimeState.Free || currentState == SlimeState.Captured)
@@ -156,60 +141,6 @@ public class BouncingNavAgent : MonoBehaviour
     {
         return Physics.Raycast(transform.position, Vector3.down, 1.1f);
     }
-
-    // 상태 변경 함수들
-    public void OnGrabbed()
-    {
-        currentState = SlimeState.Grabbed;
-        rb.velocity = Vector3.zero;
-
-        // 잡힌 효과 재생
-        tweenEffect.StopAllTweens();
-        tweenEffect.PlayGrabbedEffect();
-
-        Debug.Log("슬라임이 잡혔습니다!");
-    }
-
-    public void OnReleased()
-    {
-        currentState = SlimeState.Free;
-        captureZone = null;
-
-        // 놓인 효과 재생
-        tweenEffect.StopAllTweens();
-        tweenEffect.PlayReleasedEffect();
-
-        // 잠시 후 다시 Idle 맥박 효과
-        Invoke("StartIdlePulse", 0.5f);
-
-        Debug.Log("슬라임이 놓였습니다!");
-    }
-
-    public void OnEnterCaptureZone(Transform zone)
-    {
-        currentState = SlimeState.Captured;
-        captureZone = zone;
-        spawnPoint = zone.position;
-
-        // 포획 효과
-        tweenEffect.StopAllTweens();
-        tweenEffect.PlaySlimeTween();
-
-        Debug.Log("슬라임이 포획존에 들어갔습니다!");
-    }
-
-    public void OnEnterBasket()
-    {
-        currentState = SlimeState.InBasket;
-        rb.velocity = Vector3.zero;
-
-        // 바구니 진입 효과
-        tweenEffect.StopAllTweens();
-        tweenEffect.PlaySlimeTween();
-
-        Debug.Log("슬라임이 포획 바구니에 들어갔습니다!");
-    }
-
     private void StartIdlePulse()
     {
         if (currentState == SlimeState.Free)
