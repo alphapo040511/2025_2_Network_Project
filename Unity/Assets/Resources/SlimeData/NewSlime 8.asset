@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50f92a28c2f83474a94e17525aa41142, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d3d9f4a218051e428450e252cac5fcb, type: 3}
   m_Name: NewSlime 8
   m_EditorClassIdentifier: 
-  slimeName: Aram
-  price: 7
-  prefab: {fileID: 3355230616944659240, guid: b5a6f015d0fd54e45bd3b4db703fd399, type: 3}
-  incomeTime: 3
-  incomeAmount: 13
+  key: slime_008
+  slimeName: 
+  price: 0
+  prefab: {fileID: 0}
+  incomeTime: 0
+  incomeAmount: 0
