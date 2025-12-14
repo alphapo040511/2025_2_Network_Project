@@ -23,9 +23,7 @@ public class ShopSlot : MonoBehaviour
             nameText.text = data.slimeName;
             priceText.text = $"{data.price}원";
 
-            buyButton.interactable = true; // 버튼 다시 활성화
-
-            // 만약 "판매됨" 텍스트를 띄웠다면 다시 원래 이름으로 변경
+            buyButton.interactable = true; 
             // soldPanel이 있다면 비활성화: if(soldPanel) soldPanel.SetActive(false);
 
             gameObject.SetActive(true);

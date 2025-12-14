@@ -29,6 +29,7 @@ public class GameMana : MonoBehaviour
 
     private void Start()
     {
+        SlimeGenerator();
         UpdateUI();
         RerollShop();
     }
@@ -78,6 +79,8 @@ public class GameMana : MonoBehaviour
             Slime slimeScript = go.GetComponent<Slime>();
             if (slimeScript != null) slimeScript.Initialize(data);
 
+
+
             return true;
         }
         return false;
@@ -93,5 +96,29 @@ public class GameMana : MonoBehaviour
     {
         if (moneyText != null)
             moneyText.text = $"Gold: {currentMoney}";
+    }
+
+    public void SlimeGenerator()
+    {
+        List<ItemData> itemInven = InventoryManager.Instance.GetInventoryData();
+        foreach(ItemData item in itemInven)
+        {
+            for (int i = 0; i < item.quantity; i++)
+            {
+                SpawnSlime(item.slimeData);
+            }
+        }
+    }
+
+    void SpawnSlime(SlimeDataSO data)
+    {
+        if (data.prefab == null) return;
+
+        // À§Ä¡¸¦ ¾à°£ ·£´ýÇÏ°Ô Èð»Ñ¸®±â
+        Vector3 randomPos = spawnPoint.position + new Vector3(Random.Range(-3f, 3f), 0, Random.Range(-3f, 3f));
+
+        // »ý¼º!
+        GameObject go = Instantiate(data.prefab, randomPos, Quaternion.identity);
+
     }
 }
