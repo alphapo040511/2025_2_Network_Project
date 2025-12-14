@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class AuthUI : MonoBehaviour
@@ -44,6 +45,7 @@ public class AuthUI : MonoBehaviour
         statusText.text = "로그인 중 ....";
         yield return StartCoroutine(authManager.Login(usernameInput.text, passwordInput.text));
         statusText.text = "로그인 성공";
+        SceneManager.LoadScene("ChatScene");        //로그인 성공 시 바로 게임 씬으로 이동 
     }
 
 
