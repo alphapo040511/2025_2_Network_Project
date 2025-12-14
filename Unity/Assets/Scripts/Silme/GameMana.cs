@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
-using static UnityEditor.Progress;
 
 public class GameMana : MonoBehaviour
 {
@@ -25,6 +24,8 @@ public class GameMana : MonoBehaviour
     [Header("필수 할당")]
     public Transform viewportContent; // Scroll View 안의 'Content' 오브젝트 연결
     public SlimeListView itemPrefab;     // 생성할 슬롯(버튼/이미지 등) 프리팹
+
+    public NetworkManager chatManager;
 
     private void Awake()
     {
@@ -97,6 +98,11 @@ public class GameMana : MonoBehaviour
             StartCoroutine(NetworkDataManager.Instance.GoldUpdate(currentMoney));   // 골드 서버에 반영
 
             InventoryManager.Instance.AddSlime(data);       // 슬라임 추가
+
+            if(chatManager != null && NetworkDataManager.Instance.playerData != null)
+            {
+                chatManager.SendChatMessage($"[시스템] <color=#4DD0E1>{NetworkDataManager.Instance.playerData.username}</color> 님이 {data.slimeName}을 획득 하였습니다.");
+            }
 
             UpdateUI();
 
