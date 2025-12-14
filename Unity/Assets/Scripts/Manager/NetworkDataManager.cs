@@ -21,6 +21,11 @@ public class NetworkDataManager : SingletonMonoBehaviour<NetworkDataManager>
 
     public Player playerData { get; private set; }
 
+    public void LogOut()
+    {
+        playerData = null;
+    }
+
     public void SetPlayerData(int player_id, string username)
     {
         Player playerData = new Player();
