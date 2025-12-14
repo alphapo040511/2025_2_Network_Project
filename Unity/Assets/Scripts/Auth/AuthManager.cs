@@ -34,7 +34,7 @@ public class AuthManager : MonoBehaviour
         tokenExpiryTime = new DateTime(expiryTicks);
     }
 
-    //PlayerPrefs 에 토큰 정보 저장
+    // PlayerPrefs 에 토큰 정보 저장
     private void SaveTokenToPrefs(string accessToken, string refreshToken, DateTime expiryTime)
     {
         PlayerPrefs.SetString(ACCESS_TOKEN_PREFS_KEY, accessToken);
@@ -46,8 +46,15 @@ public class AuthManager : MonoBehaviour
         this.tokenExpiryTime = expiryTime;
     }
 
+    // 토큰 정보 저장
+    private void SaveToken(string accessToken, DateTime expiryTime)
+    {
+        this.accessToken = accessToken;
+        this.tokenExpiryTime = expiryTime;
+    }
+
     //사용자 등록 코루틴
-    public IEnumerator Register(string username, string password, Action<string> callbackMessage)
+    public IEnumerator Register(string username, string password, Action<BaseResponse> callback)
     {
         var user = new { username, password };
         var jsonData = JsonConvert.SerializeObject(user);
@@ -61,21 +68,35 @@ public class AuthManager : MonoBehaviour
 
             yield return www.SendWebRequest();
 
-            var respone = JsonConvert.DeserializeObject<BaseResponse>(www.downloadHandler.text);
-
-            if (www.result != UnityWebRequest.Result.Success)
+            // 통신 자체 실패
+            if (www.result == UnityWebRequest.Result.ConnectionError)
             {
-                callbackMessage?.Invoke($"(Error Code: {www.responseCode})회원 가입 실패: {respone.message}");
+                // 실패 정보 담아서 전달
+                BaseResponse failResponse = new BaseResponse
+                {
+                    success = false,
+                    message = $"네트워크 오류: {www.error}"
+                };
+                yield break;
+            }
+
+            var response = JsonConvert.DeserializeObject<BaseResponse>(www.downloadHandler.text);
+
+            if (response.success)
+            {
+                callback?.Invoke(response);
+                Debug.Log($"플레이어 ID : {username} | {response.message}");
             }
             else
             {
-                callbackMessage?.Invoke(respone.message);
+                callback?.Invoke(response);
+                Debug.LogWarning($"플레이어 ID : {username} |  {response.message}");
             }
         }
     }
 
     //사용자 등록 코루틴
-    public IEnumerator Login(string username, string password)
+    public IEnumerator Login(string username, string password, Action<LoginResponse> callback)
     {
         var user = new { username, password };
         var jsonData = JsonConvert.SerializeObject(user);
@@ -92,7 +113,14 @@ public class AuthManager : MonoBehaviour
             // 통신 자체 실패
             if (www.result == UnityWebRequest.Result.ConnectionError)
             {
-                Debug.LogError($"네트워크 오류: {www.error}");
+                // 실패 정보 담아서 전달
+                LoginResponse failResponse = new LoginResponse
+                {
+                    success = false,
+                    message = $"네트워크 오류: {www.error}",
+                    playerId = -1,
+                    accessToken = "null"
+                };
                 yield break;
             }
 
@@ -100,16 +128,16 @@ public class AuthManager : MonoBehaviour
             var response = JsonConvert.DeserializeObject<LoginResponse>(www.downloadHandler.text);
 
             // 로그인 실패
-            if (!response.success)
+            if (response.success)
             {
-                Debug.Log($"(Error Code: {www.responseCode}) 로그인 실패: {response.message}");
-                yield break;
+                Debug.Log($"플레이어 ID : {response.playerId} | 접근 토큰 : {response.accessToken}");
+                SaveToken(response.accessToken, DateTime.UtcNow.AddMinutes(15));
+                callback?.Invoke(response);
             }
             else  // 로그인 성공
             {
-                Debug.Log($"플레이어 ID : {response.playerId} | 접근 토큰 : {response.accessToken}");
-                SaveTokenToPrefs(response.accessToken, null, DateTime.UtcNow.AddMinutes(15));
-                Debug.Log("Login Successful");
+                Debug.Log($"(Error Code: {www.responseCode}) 로그인 실패: {response.message}");
+                callback?.Invoke(response);
             }
         }
     }

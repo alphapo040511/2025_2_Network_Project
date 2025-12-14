@@ -43,9 +43,21 @@ public class AuthUI : MonoBehaviour
     private IEnumerator LoginCoroutine()
     {
         statusText.text = "로그인 중 ....";
-        yield return StartCoroutine(authManager.Login(usernameInput.text, passwordInput.text));
-        statusText.text = "로그인 성공";
-        SceneManager.LoadScene("ChatScene");        //로그인 성공 시 바로 게임 씬으로 이동 
+        yield return StartCoroutine(authManager.Login(
+                usernameInput.text,
+                passwordInput.text,
+                (response) =>
+                {
+                    if (response.success)
+                    {
+                        statusText.text = "로그인 성공";
+                        SceneManager.LoadScene("ChatScene");        //로그인 성공 시 바로 게임 씬으로 이동 
+                    }
+                    else
+                        statusText.text = $"로그인 실패 ({response.message})";
+                }
+            ));
+
     }
 
 
@@ -55,7 +67,13 @@ public class AuthUI : MonoBehaviour
         yield return StartCoroutine(authManager.Register(
                 usernameInput.text,
                 passwordInput.text,
-                (string message) => statusText.text = message               // 콜백으로 상태 표시
+                (BaseResponse response) =>
+                {
+                    if(response.success)
+                        statusText.text = "회원 가입 성공";
+                    else
+                        statusText.text = $"회원 가입 실패 ({response.message})";
+                }               // 콜백으로 상태 표시
             ));
     }
 

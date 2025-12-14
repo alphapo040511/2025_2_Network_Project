@@ -99,7 +99,10 @@ app.post('/login', async (req, res) => {
         const isMatch = await bcrypt.compare(password, player.password_hash);
 
         // 비밀번호가 틀린 경우
-        if (!isMatch) {
+        if (!isMatch) 
+        {
+            console.log(`비밀번호 틀림`);
+
             return res.status(401).json({
                 success: false,
                 message: '비밀번호가 틀렸습니다.'
