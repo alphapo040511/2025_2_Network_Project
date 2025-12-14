@@ -124,6 +124,7 @@ public class AuthManager : SingletonMonoBehaviour<AuthManager>
                     playerId = -1,
                     accessToken = "null"
                 };
+                callback?.Invoke(failResponse);
                 yield break;
             }
 
@@ -134,7 +135,9 @@ public class AuthManager : SingletonMonoBehaviour<AuthManager>
             if (response.success)
             {
                 Debug.Log($"플레이어 ID : {response.playerId} | 접근 토큰 : {response.accessToken}");
-                SaveToken(response.playerId, response.accessToken, DateTime.UtcNow.AddMinutes(15));
+                // 토큰 저장
+                //SaveToken(response.playerId, response.accessToken, DateTime.UtcNow.AddMinutes(15));
+                NetworkDataManager.Instance.SetPlayerData(response.playerId, username);
                 callback?.Invoke(response);
             }
             else  // 로그인 성공

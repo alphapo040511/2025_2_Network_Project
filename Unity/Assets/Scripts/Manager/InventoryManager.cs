@@ -21,16 +21,21 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
         }
     }
 
+    public void FetchInvneory()
+    {
+        StartCoroutine(NetworkDataManager.Instance.FetchInventory());
+    }
+
     public void SetInventoryItems(List<NetworkItemData> items)
     {
         inventory.Clear();
         foreach(NetworkItemData item in items)
         {
-            if (!inventory.ContainsKey(item.itemKey) && slimes.ContainsKey(item.itemKey))
+            if (!inventory.ContainsKey(item.slime_key) && slimes.ContainsKey(item.slime_key))
             {
-                ItemData slime = new ItemData(slimes[item.itemKey], item.quantity);
+                ItemData slime = new ItemData(slimes[item.slime_key], item.quantity);
 
-                inventory.Add(item.itemKey, slime);        // 인벤토리에 추가
+                inventory.Add(item.slime_key, slime);        // 인벤토리에 추가
             }
         }
     }

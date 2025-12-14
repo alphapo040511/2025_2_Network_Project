@@ -78,6 +78,8 @@ app.post('/login', async (req, res) => {
 
     try
     {
+        console.log(`로그인 시도 [유저: ${username}]`);
+
         // 유저 존재 확인
         const[players] = await pool.query(
             'SELECT player_id, password_hash FROM players WHERE username = ?',
@@ -87,6 +89,8 @@ app.post('/login', async (req, res) => {
         // 유저가 없다면 실패
         if(players.length === 0)
         {
+            console.log(`존재하지 않는 사용자 [유저: ${username}]`);
+
             return res.status(401).json({
                 success : false, 
                 message : '존재하지 않는 사용자 입니다.'
@@ -122,6 +126,7 @@ app.post('/login', async (req, res) => {
         // 성공 응답
         res.status(200).json({
             success: true,
+            message: '로그인 성공',
             playerId: player.player_id,
             accessToken
         });        

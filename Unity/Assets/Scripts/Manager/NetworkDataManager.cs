@@ -3,30 +3,59 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
+using UnityEditor.Experimental.GraphView;
+using System;
+
 
 [System.Serializable]
 public class NetworkItemData
 {
-    public string itemKey;
+    public string slime_key;
     public int quantity;
 }
 
 public class NetworkDataManager : SingletonMonoBehaviour<NetworkDataManager>
 {
-    private Player playerData;
+    private const string INVENTORY_SERVER_URL = "http://localhost:4001";
+
+    public Player playerData { get; private set; }
 
     public void SetPlayerData(int player_id, string username)
     {
         Player playerData = new Player();
         playerData.player_id = player_id;
         playerData.username = username;
+
+        this.playerData = playerData;
     }
 
-    public List<NetworkItemData> LoadInventoryData()
+    // 서버의 인벤토리 데이터 로드
+    public IEnumerator FetchInventory()
     {
-        List<NetworkItemData> inventory = new List<NetworkItemData>();
+        if(playerData == null) yield break;
 
+        using (UnityWebRequest www = UnityWebRequest.Get($"{INVENTORY_SERVER_URL}/inventory/{playerData.player_id}"))
+        {
+            yield return www.SendWebRequest();
 
-        return inventory;
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                List<NetworkItemData> playerSlimes = new List<NetworkItemData>();
+
+                playerSlimes = JsonConvert.DeserializeObject<List<NetworkItemData>>(www.downloadHandler.text);
+                foreach (var slime in playerSlimes)
+                {
+                    Debug.Log($"\n - {slime.slime_key} 슬라임 | {slime.quantity} 개");
+                }
+
+                InventoryManager.Instance.SetInventoryItems(playerSlimes);
+
+                Debug.Log($"인벤토리 정리 완료 {playerSlimes.Count} 개");
+            }
+            else
+            {
+                Debug.LogWarning("인벤토리 슬라임 데이터 패치 오류");
+            }
+        }
     }
 }

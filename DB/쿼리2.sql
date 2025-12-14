@@ -17,6 +17,11 @@ CREATE TABLE inventories(
 	FOREIGN KEY(slime_id) REFERENCES slimes(slime_id)
 )
 
+SELECT inv.quantity, s.slime_key
+FROM inventories inv
+JOIN slimes s ON inv.slime_id = s.slime_id
+WHERE inventories.player_id
+
 -- 17. 퀘스트 테이블 생성
 CREATE TABLE quests(
 	quest_id INT AUTO_INCREMENT PRIMARY KEY,
