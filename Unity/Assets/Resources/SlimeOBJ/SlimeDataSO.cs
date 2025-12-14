@@ -1,5 +1,14 @@
 using UnityEngine;
 
+public enum SlimeRarity
+{
+    Common = 0,
+    Rare = 1,
+    Epic = 2,
+    Legendery = 3,
+    Mystic = 4
+}
+
 [CreateAssetMenu(fileName = "NewSlime", menuName = "Game/SlimeData")]
 public class SlimeDataSO : ScriptableObject
 {
@@ -7,6 +16,7 @@ public class SlimeDataSO : ScriptableObject
     public string key;             // 슬라임 구분용 Key
     public string slimeName;       // 슬라임 이름
     public int price;              // 구매 가격
+    public SlimeRarity slimeRarity;// 슬라임 희귀도
     public GameObject prefab;      // 소환될 슬라임 프리팹
 
     [Header("경제 활동")]

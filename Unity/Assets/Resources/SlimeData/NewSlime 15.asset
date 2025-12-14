@@ -15,6 +15,7 @@ MonoBehaviour:
   key: slime_015
   slimeName: Nirak
   price: 0
+  slimeRarity: 1
   prefab: {fileID: 7140282623590444585, guid: a4f4ea99cfa763744907370f6360399e, type: 3}
   incomeTime: 0
   incomeAmount: 0

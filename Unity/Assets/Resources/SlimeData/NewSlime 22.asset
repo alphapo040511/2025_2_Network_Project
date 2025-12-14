@@ -15,6 +15,7 @@ MonoBehaviour:
   key: slime_022
   slimeName: Holly
   price: 0
+  slimeRarity: 3
   prefab: {fileID: 5270893489588937963, guid: c7f02b0412831724e925e86fa9faceb9, type: 3}
   incomeTime: 0
   incomeAmount: 0

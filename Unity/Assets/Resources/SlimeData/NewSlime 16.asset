@@ -15,6 +15,7 @@ MonoBehaviour:
   key: slime_016
   slimeName: Kuma
   price: 0
+  slimeRarity: 2
   prefab: {fileID: 6731601416446676489, guid: a983ffa055cd5c140b858a8241174ecd, type: 3}
   incomeTime: 0
   incomeAmount: 0
