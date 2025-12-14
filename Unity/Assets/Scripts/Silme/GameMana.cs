@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
+using static UnityEditor.Progress;
 
 public class GameMana : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class GameMana : MonoBehaviour
 
     [Header("생성 위치")]
     public Transform spawnPoint;
+
+    [Header("필수 할당")]
+    public Transform viewportContent; // Scroll View 안의 'Content' 오브젝트 연결
+    public GameObject itemPrefab;     // 생성할 슬롯(버튼/이미지 등) 프리팹
 
     private void Awake()
     {
@@ -79,7 +84,9 @@ public class GameMana : MonoBehaviour
             Slime slimeScript = go.GetComponent<Slime>();
             if (slimeScript != null) slimeScript.Initialize(data);
 
-
+            GameObject newObj = Instantiate(itemPrefab, viewportContent);
+            TextMeshProUGUI txt = newObj.transform.Find("SlimeName").GetComponent<TextMeshProUGUI>();
+            txt.text = data.slimeName + " / " + data.incomeAmount.ToString();
 
             return true;
         }
@@ -106,6 +113,8 @@ public class GameMana : MonoBehaviour
             for (int i = 0; i < item.quantity; i++)
             {
                 SpawnSlime(item.slimeData);
+
+                Debug.Log($"{item.slimeData.slimeName}/{item.quantity}");
             }
         }
     }
