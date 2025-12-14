@@ -22,7 +22,7 @@ app.get('/inventory/:player_id', async (req,res) => {
             [req.params.player_id]
         );
         res.status(200).json(inventory);
-        console.log(`인벤토리 : ${inventory}`);
+        console.log('인벤토리 로드 성공');
     }
     catch (error)
     {

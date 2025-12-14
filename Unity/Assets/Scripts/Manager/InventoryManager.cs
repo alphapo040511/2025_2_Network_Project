@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
 {
@@ -38,6 +39,9 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
                 inventory.Add(item.slime_key, slime);        // 인벤토리에 추가
             }
         }
+
+        // 인벤토리 로드 완료
+        SceneManager.LoadScene("ChatScene");        //바로 게임 씬으로 이동 
     }
 
     public List<ItemData> GetInventoryData()

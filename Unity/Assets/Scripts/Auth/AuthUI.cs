@@ -55,6 +55,8 @@ public class AuthUI : MonoBehaviour
                     {
                         statusText.text = "로그인 성공";
                         InventoryManager.Instance.FetchInvneory();
+
+                        // 데이터 로드 완료 되면 이동하도록 일단 옮길게요
                         //SceneManager.LoadScene("ChatScene");        //로그인 성공 시 바로 게임 씬으로 이동 
                     }
                     else
