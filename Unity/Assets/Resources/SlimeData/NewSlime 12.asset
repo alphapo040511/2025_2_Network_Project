@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: slime_012
   slimeName: Haran
-  price: 0
+  price: 5
   slimeRarity: 1
   prefab: {fileID: 6254809541420898287, guid: 0653bea62228ce24aa603879b6d1cf24, type: 3}
   slimeImage: {fileID: -169347016, guid: 6caf6b393f85d3d4eb90ee49e4949551, type: 3}

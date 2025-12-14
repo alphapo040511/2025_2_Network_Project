@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameMana : MonoBehaviour
 {
@@ -111,6 +112,7 @@ public class GameMana : MonoBehaviour
 
             Slime slimeScript = go.GetComponent<Slime>();
             if (slimeScript != null) slimeScript.Initialize(data);
+            else Debug.LogWarning("Slime 컴포넌트가 없습니다.");
 
             AddSlimeList(data);
 
@@ -165,6 +167,15 @@ public class GameMana : MonoBehaviour
 
         // 생성!
         GameObject go = Instantiate(data.prefab, randomPos, Quaternion.identity);
+        Slime slimeScript = go.GetComponent<Slime>();
+        if (slimeScript != null) slimeScript.Initialize(data);
+        else Debug.LogWarning("Slime 컴포넌트가 없습니다.");
+    }
 
+    public void Logout()
+    {
+        StartCoroutine(NetworkDataManager.Instance.GoldUpdate(currentMoney));   // 골드 서버에 반영
+        NetworkDataManager.Instance.LogOut();
+        SceneManager.LoadScene("AuthScene");
     }
 }

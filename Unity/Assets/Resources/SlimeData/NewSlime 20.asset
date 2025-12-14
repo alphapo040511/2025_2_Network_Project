@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: slime_020
   slimeName: Holly
-  price: 0
+  price: 10
   slimeRarity: 2
   prefab: {fileID: 8409381495469546190, guid: e85797c1b0c81384eb04bb7375201a2a, type: 3}
   slimeImage: {fileID: 75043184, guid: aff5dc19b4d39ef4ba89205953574067, type: 3}

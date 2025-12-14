@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: slime_001
   slimeName: Aram
-  price: 0
+  price: 1
   slimeRarity: 0
   prefab: {fileID: 4350512852959636014, guid: 73ad2d73643df7d4eab9b60b43ce3607, type: 3}
   slimeImage: {fileID: -1836380981, guid: 6caf6b393f85d3d4eb90ee49e4949551, type: 3}

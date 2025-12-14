@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: slime_006
   slimeName: Lala
-  price: 0
+  price: 1
   slimeRarity: 0
   prefab: {fileID: 6729318435595134606, guid: 5bc2c93e238df094fb2573217aa6ba93, type: 3}
   slimeImage: {fileID: -1428569043, guid: 6caf6b393f85d3d4eb90ee49e4949551, type: 3}

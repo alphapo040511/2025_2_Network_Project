@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: slime_004
   slimeName: Sugar
-  price: 0
+  price: 1
   slimeRarity: 0
   prefab: {fileID: 3733222124621038659, guid: 03b249bb2936c3945b73e7a2d4f8751f, type: 3}
   slimeImage: {fileID: -1115694137, guid: 6caf6b393f85d3d4eb90ee49e4949551, type: 3}

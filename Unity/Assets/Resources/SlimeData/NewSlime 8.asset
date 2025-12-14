@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: slime_008
   slimeName: Hurabono
-  price: 0
+  price: 1
   slimeRarity: 0
   prefab: {fileID: 7540756533413800769, guid: 14ce8dd503915ee48ad07a629538d797, type: 3}
   slimeImage: {fileID: -73696141, guid: 6caf6b393f85d3d4eb90ee49e4949551, type: 3}
