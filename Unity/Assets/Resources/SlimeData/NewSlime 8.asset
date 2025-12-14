@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: NewSlime 8
   m_EditorClassIdentifier: 
   key: slime_008
-  slimeName: 
+  slimeName: Hurabono
   price: 0
-  prefab: {fileID: 0}
+  prefab: {fileID: 7540756533413800769, guid: 14ce8dd503915ee48ad07a629538d797, type: 3}
   incomeTime: 0
   incomeAmount: 0

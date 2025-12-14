@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d3d9f4a218051e428450e252cac5fcb, type: 3}
-  m_Name: NewSlime 6
+  m_Name: NewSlime 12
   m_EditorClassIdentifier: 
-  key: slime_006
-  slimeName: Lala
+  key: slime_012
+  slimeName: Haran
   price: 0
-  prefab: {fileID: 6729318435595134606, guid: 5bc2c93e238df094fb2573217aa6ba93, type: 3}
+  prefab: {fileID: 6254809541420898287, guid: 0653bea62228ce24aa603879b6d1cf24, type: 3}
   incomeTime: 0
   incomeAmount: 0

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: NewSlime 1
   m_EditorClassIdentifier: 
   key: slime_001
-  slimeName: 
+  slimeName: Aram
   price: 0
-  prefab: {fileID: 0}
+  prefab: {fileID: 4350512852959636014, guid: 73ad2d73643df7d4eab9b60b43ce3607, type: 3}
   incomeTime: 0
   incomeAmount: 0

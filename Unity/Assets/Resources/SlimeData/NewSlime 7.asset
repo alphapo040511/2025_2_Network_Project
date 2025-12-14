@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: NewSlime 7
   m_EditorClassIdentifier: 
   key: slime_007
-  slimeName: 
+  slimeName: Furi
   price: 0
-  prefab: {fileID: 0}
+  prefab: {fileID: 8001377184586266247, guid: 13616c6ff50b12849b244c5774f1db05, type: 3}
   incomeTime: 0
   incomeAmount: 0

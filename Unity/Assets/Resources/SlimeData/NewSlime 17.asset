@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d3d9f4a218051e428450e252cac5fcb, type: 3}
-  m_Name: NewSlime 6
+  m_Name: NewSlime 17
   m_EditorClassIdentifier: 
-  key: slime_006
-  slimeName: Lala
+  key: slime_017
+  slimeName: Holly
   price: 0
-  prefab: {fileID: 6729318435595134606, guid: 5bc2c93e238df094fb2573217aa6ba93, type: 3}
+  prefab: {fileID: 9152061394891284194, guid: a62a3a53db911f744b5b57772455aaae, type: 3}
   incomeTime: 0
   incomeAmount: 0

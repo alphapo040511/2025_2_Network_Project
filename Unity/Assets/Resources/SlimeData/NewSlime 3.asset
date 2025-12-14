@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: NewSlime 3
   m_EditorClassIdentifier: 
   key: slime_003
-  slimeName: 
+  slimeName: Siri
   price: 0
-  prefab: {fileID: 0}
+  prefab: {fileID: 8634870908135800692, guid: d501c146cfb769640a0bacd669b173c7, type: 3}
   incomeTime: 0
   incomeAmount: 0

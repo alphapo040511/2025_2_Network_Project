@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: NewSlime 2
   m_EditorClassIdentifier: 
   key: slime_002
-  slimeName: 
+  slimeName: Sora
   price: 0
-  prefab: {fileID: 0}
+  prefab: {fileID: 2604616551407332196, guid: 237aa50ce3c14aa4a9cf50ab33918670, type: 3}
   incomeTime: 0
   incomeAmount: 0

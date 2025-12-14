@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: NewSlime 4
   m_EditorClassIdentifier: 
   key: slime_004
-  slimeName: 
+  slimeName: Sugar
   price: 0
-  prefab: {fileID: 0}
+  prefab: {fileID: 3733222124621038659, guid: 03b249bb2936c3945b73e7a2d4f8751f, type: 3}
   incomeTime: 0
   incomeAmount: 0

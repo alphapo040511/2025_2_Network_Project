@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: NewSlime 5
   m_EditorClassIdentifier: 
   key: slime_005
-  slimeName: 
+  slimeName: Miri
   price: 0
-  prefab: {fileID: 0}
+  prefab: {fileID: 5594347783896439053, guid: 7da5ba1e595a61d4f884242a7dc5d14b, type: 3}
   incomeTime: 0
   incomeAmount: 0
