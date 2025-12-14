@@ -24,7 +24,7 @@ public class GameMana : MonoBehaviour
 
     [Header("필수 할당")]
     public Transform viewportContent; // Scroll View 안의 'Content' 오브젝트 연결
-    public GameObject itemPrefab;     // 생성할 슬롯(버튼/이미지 등) 프리팹
+    public SlimeListView itemPrefab;     // 생성할 슬롯(버튼/이미지 등) 프리팹
 
     private void Awake()
     {
@@ -106,13 +106,20 @@ public class GameMana : MonoBehaviour
             Slime slimeScript = go.GetComponent<Slime>();
             if (slimeScript != null) slimeScript.Initialize(data);
 
-            GameObject newObj = Instantiate(itemPrefab, viewportContent);
-            TextMeshProUGUI txt = newObj.transform.Find("SlimeName").GetComponent<TextMeshProUGUI>();
-            txt.text = data.slimeName + " / " + data.incomeAmount.ToString();
+            AddSlimeList(data);
 
             return true;
         }
         return false;
+    }
+
+    void AddSlimeList(SlimeDataSO data)
+    {
+        SlimeListView view = Instantiate(itemPrefab, viewportContent);
+
+        float goldPerSec = data.incomeTime == 0 ? 0 : data.incomeAmount / data.incomeTime;
+
+        view.Show(data.slimeName, goldPerSec, data.slimeImage);
     }
 
     public void AddMoney(int amount)
@@ -132,6 +139,8 @@ public class GameMana : MonoBehaviour
         List<ItemData> itemInven = InventoryManager.Instance.GetInventoryData();
         foreach(ItemData item in itemInven)
         {
+            AddSlimeList(item.slimeData);
+
             for (int i = 0; i < item.quantity; i++)
             {
                 SpawnSlime(item.slimeData);
