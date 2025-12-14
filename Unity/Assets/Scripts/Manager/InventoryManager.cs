@@ -48,4 +48,12 @@ public class InventoryManager : SingletonMonoBehaviour<InventoryManager>
     {
         return new List<ItemData>(inventory.Values);        // 인벤토리에 보유중인 (슬라임, 개수) 반환
     }
+
+    public SlimeDataSO GetSlimeToKey(string key)
+    {
+        if(slimes.ContainsKey(key))
+            return slimes[key];
+        else
+            return null;
+    }
 }

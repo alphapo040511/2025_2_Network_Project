@@ -58,15 +58,22 @@ public class GameMana : MonoBehaviour
 
     private void RerollShop()
     {
-        // 상점 슬롯을 모두 새로운 랜덤 슬라임으로 덮어쓰기
-        foreach (var slot in shopSlots)
+        StartCoroutine(NetworkDataManager.Instance.SlimeGachaDraw(shopSlots.Count, (slimes) =>
         {
-            if (allSlimeData.Count == 0) continue;
+            if(slimes != null)
+                SetSlots(slimes);
+        }));
+    }
 
-            int randomIndex = Random.Range(0, allSlimeData.Count);
-            SlimeDataSO randomSlime = allSlimeData[randomIndex];
+    public void SetSlots(List<NetworkItemData> slimeDatas)
+    {
+        int length = Mathf.Max(slimeDatas.Count, shopSlots.Count);
+        for(int i = 0; i < length; i++)
+        {
+            SlimeDataSO silme = InventoryManager.Instance.GetSlimeToKey(slimeDatas[i].slime_key);
 
-            slot.SetSlot(randomSlime);
+            if(silme != null)
+                shopSlots[i].SetSlot(silme);
         }
     }
     // ------------------------------------

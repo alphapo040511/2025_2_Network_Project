@@ -1187,7 +1187,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50a43d9aee0c6e64e86f207351b54f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slimeSO: []
+  slimeSO:
+  - {fileID: 11400000, guid: 8cb526a55530a8b45a381017523fd78b, type: 2}
+  - {fileID: 11400000, guid: 5f3f093cbbeeb8d4ca577f0ba3c992a5, type: 2}
+  - {fileID: 11400000, guid: 48c45603319adb74c952f01aa491a5d9, type: 2}
+  - {fileID: 11400000, guid: 60344aea522e92f4086f0c2cad109cb9, type: 2}
+  - {fileID: 11400000, guid: a2b3a784fec6f17448398385a3e46959, type: 2}
+  - {fileID: 11400000, guid: ce9ba816d02dc2049aa8a0f744e2e2ee, type: 2}
+  - {fileID: 11400000, guid: 2005627e75b561e4d89e90e9f4be2d8d, type: 2}
+  - {fileID: 11400000, guid: bc16e3ffb5786fc44a4241da7b65460d, type: 2}
+  - {fileID: 11400000, guid: a99afcc3bd3f62d49be4217c0d0ec1df, type: 2}
+  - {fileID: 11400000, guid: 14def76ce25f8f545ba27a74fa2e5ec9, type: 2}
+  - {fileID: 11400000, guid: 910395fd491138341bb9f3b90af879e9, type: 2}
+  - {fileID: 11400000, guid: 3bf77c2605be8684ba2ad9fa1bff126e, type: 2}
+  - {fileID: 11400000, guid: 1795e0a671e8e9748aba8e3c0132335e, type: 2}
+  - {fileID: 11400000, guid: 5b441121a775dac46b1e450fd63722d8, type: 2}
+  - {fileID: 11400000, guid: 76b9f9fb26d61094a95952d1efe1f0b2, type: 2}
+  - {fileID: 11400000, guid: ca91edf032bb043469062d95d86181d6, type: 2}
+  - {fileID: 11400000, guid: e767cfc202eaad94ebeb321d3a7cec0f, type: 2}
+  - {fileID: 11400000, guid: f589e479a23d04a4592c4d06770b8c7e, type: 2}
+  - {fileID: 11400000, guid: e346f736fda80194293e17e37f5ae611, type: 2}
+  - {fileID: 11400000, guid: 31ba9ee955dda33428c6ccc6c44fca3e, type: 2}
+  - {fileID: 11400000, guid: 54c49c6bd562dc04d848e3e24e77e202, type: 2}
+  - {fileID: 11400000, guid: 1ee2147df81ab1646b521a72876c7018, type: 2}
+  - {fileID: 11400000, guid: 9917945833275c64cb3b75e231353864, type: 2}
+  - {fileID: 11400000, guid: a2a8deb29711b4e4fab2468a7f089ab9, type: 2}
+  - {fileID: 11400000, guid: e220f5a6438037842a845d36e6c0c614, type: 2}
 --- !u!4 &1012238115
 Transform:
   m_ObjectHideFlags: 0
