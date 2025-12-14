@@ -96,7 +96,14 @@ app.get('/gold/:player_id', async (req,res) => {
             [req.params.player_id]
         );
 
-        const gold = inventory[0]?.gold || 50;
+        if(inventory.length === 0)
+        {
+            res.status(500).json({success : false, message : error.message});
+            console.log(`골드 로드 실패 ${error.message}`);
+            return;
+        }
+
+        const gold = inventory[0].gold;
 
         res.status(200).json(gold);
         console.log('골드 로드 성공');
