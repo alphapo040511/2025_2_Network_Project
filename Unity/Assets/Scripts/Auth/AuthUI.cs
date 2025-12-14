@@ -14,12 +14,9 @@ public class AuthUI : MonoBehaviour
 
     public Text statusText;
 
-    private AuthManager authManager;
-
     // Start is called before the first frame update
     void Start()
     {
-        authManager = GetComponent<AuthManager>();
         registerButton.onClick.AddListener(OnRegisterClick);
         loginButton.onClick.AddListener(OnLoginClick);
     }
@@ -43,7 +40,7 @@ public class AuthUI : MonoBehaviour
     private IEnumerator LoginCoroutine()
     {
         statusText.text = "로그인 중 ....";
-        yield return StartCoroutine(authManager.Login(
+        yield return StartCoroutine(AuthManager.Instance.Login(
                 usernameInput.text,
                 passwordInput.text,
                 (response) =>
@@ -64,7 +61,7 @@ public class AuthUI : MonoBehaviour
     private IEnumerator RegisterCoroutine()
     {
         statusText.text = "회원 가입 중 ....";
-        yield return StartCoroutine(authManager.Register(
+        yield return StartCoroutine(AuthManager.Instance.Register(
                 usernameInput.text,
                 passwordInput.text,
                 (BaseResponse response) =>

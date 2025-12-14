@@ -6,8 +6,9 @@ using System.Text;
 using UnityEngine.Networking;
 using Newtonsoft;
 using Newtonsoft.Json;
+using Unity.VisualScripting;
 
-public class AuthManager : MonoBehaviour
+public class AuthManager : SingletonMonoBehaviour<AuthManager>
 {
     //서버 URL 및 PlayerPrefs 키 상수 정의
     private const string SERVER_URL = "http://localhost:4000";
@@ -16,6 +17,7 @@ public class AuthManager : MonoBehaviour
     private const string TOKEN_EXPIRY_PREFS_KEY = "TokenExpiry";
 
     //토큰 및 만료 시간 저장 변수
+    private int playerId;
     private string accessToken;
     private string refreshToken;
     private DateTime tokenExpiryTime;
@@ -47,8 +49,9 @@ public class AuthManager : MonoBehaviour
     }
 
     // 토큰 정보 저장
-    private void SaveToken(string accessToken, DateTime expiryTime)
+    private void SaveToken(int playerId, string accessToken, DateTime expiryTime)
     {
+        this.playerId = playerId;
         this.accessToken = accessToken;
         this.tokenExpiryTime = expiryTime;
     }
@@ -131,7 +134,7 @@ public class AuthManager : MonoBehaviour
             if (response.success)
             {
                 Debug.Log($"플레이어 ID : {response.playerId} | 접근 토큰 : {response.accessToken}");
-                SaveToken(response.accessToken, DateTime.UtcNow.AddMinutes(15));
+                SaveToken(response.playerId, response.accessToken, DateTime.UtcNow.AddMinutes(15));
                 callback?.Invoke(response);
             }
             else  // 로그인 성공
@@ -141,4 +144,13 @@ public class AuthManager : MonoBehaviour
             }
         }
     }
+
+    #region Getters
+    public int GetPlayerId() {  return playerId; }
+
+    public string GetAccessToken() { return accessToken; }
+
+    public string GetRefreshToken() { return refreshToken; }
+
+    #endregion
 }

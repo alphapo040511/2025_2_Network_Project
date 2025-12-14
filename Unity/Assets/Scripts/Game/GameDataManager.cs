@@ -9,7 +9,6 @@ public class Player
 {
     public int player_id;
     public string username;
-    public int level;
 }
 
 [System.Serializable]

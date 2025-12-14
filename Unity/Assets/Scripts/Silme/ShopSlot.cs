@@ -10,10 +10,10 @@ public class ShopSlot : MonoBehaviour
     public Button buyButton;       // 구매 버튼
     public GameObject soldPanel;   // (선택) "판매됨"이라고 가려주는 패널이 있다면 사용
 
-    private SlimeData currentData;
+    private SlimeDataSO currentData;
 
     // GameManager가 이 함수를 호출해서 슬롯을 채워줍니다.
-    public void SetSlot(SlimeData data)
+    public void SetSlot(SlimeDataSO data)
     {
         currentData = data;
 

@@ -3,11 +3,11 @@ using System.Collections;
 
 public class Slime : MonoBehaviour
 {
-    private SlimeData data;
+    private SlimeDataSO data;
     private float timer;
 
     // 생성될 때 데이터를 주입받음
-    public void Initialize(SlimeData slimeData)
+    public void Initialize(SlimeDataSO slimeData)
     {
         this.data = slimeData;
         timer = 0f;

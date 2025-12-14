@@ -12,7 +12,7 @@ public class GameMana : MonoBehaviour
     public int rerollCost = 2;    // 리롤 비용
 
     [Header("데이터베이스")]
-    public List<SlimeData> allSlimeData;
+    public List<SlimeDataSO> allSlimeData;
 
     [Header("UI 연결")]
     public List<ShopSlot> shopSlots;
@@ -58,14 +58,14 @@ public class GameMana : MonoBehaviour
             if (allSlimeData.Count == 0) continue;
 
             int randomIndex = Random.Range(0, allSlimeData.Count);
-            SlimeData randomSlime = allSlimeData[randomIndex];
+            SlimeDataSO randomSlime = allSlimeData[randomIndex];
 
             slot.SetSlot(randomSlime);
         }
     }
     // ------------------------------------
 
-    public bool TryBuySlime(SlimeData data)
+    public bool TryBuySlime(SlimeDataSO data)
     {
         if (currentMoney >= data.price)
         {
