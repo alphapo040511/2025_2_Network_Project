@@ -212,7 +212,7 @@ public class NetworkManager : MonoBehaviour
         if (chatLogPrefab != null && chatContent != null)
         {
             TextMeshProUGUI chat = Instantiate(chatLogPrefab, chatContent);
-            chat.text += $"{message}";
+            chat.text = $"{message}";
         }
     }
 
